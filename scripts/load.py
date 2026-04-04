@@ -55,11 +55,12 @@ WHEN NOT MATCHED THEN
     );
 """
 
-def main():
+def load_prices(rows):
+    if not rows:
+        logging.info("No rows to load.")
+        return 0
     #fixed_snapshot_time = datetime(2026, 4, 4, 17, 30, 0, tzinfo=timezone.utc)
-    logging.info("[FETCH] Fetching data...")
-    rows = fetch_prices()
-    logging.info(f"Fetched {len(rows)} rows")
+
     logging.info("Connecting to Snowflake...")
     conn = snowflake.connector.connect(**SNOWFLAKE_CONFIG)
     cur = conn.cursor()
@@ -77,11 +78,10 @@ def main():
             )
         conn.commit()
         logging.info("Merge completed")
+        return len(rows)
     finally:
         cur.close()
         conn.close()
 
-if __name__ == "__main__":
-    main()
 
 
