@@ -67,6 +67,12 @@ This makes sense because:
 - Prefect
 - REST APIs
 
+## Key Design Decisions
+
+- Used a unified schema to normalize data across APIs
+- Added a `source` column to support multi-source comparison
+- Used MERGE in Snowflake to ensure idempotent loads
+- Shared the same snapshot timestamp across sources for accurate comparison
 
 ## What I learned
 
