@@ -20,13 +20,26 @@ Then I stored everything in Snowflake and compared the results.
 
 
 ## Architecture
-
-(put your screenshot here)
-
+```
+CoinGecko API        Kraken API
+↓                         ↓
+Python Fetch Layer (Normalization)
+↓
+Prefect Orchestration
+↓
+Snowflake (Warehouse)
+↓
+Snowsight Dashboard
+```
 
 ## Dashboard
+ 
+![Dashboard](images/dashboard.png)
 
-(put screenshots here)
+## Prefect flow
+
+![Pipeline](images/pipeline-prefect.png)
+
 
 ### Price comparison
 - BTC, ETH, SOL from CoinGecko vs Kraken
