@@ -1,7 +1,6 @@
 import os
 from datetime import datetime,timezone
 import snowflake.connector
-from fetch import fetch_prices
 from dotenv import load_dotenv
 import logging
 from pathlib import Path

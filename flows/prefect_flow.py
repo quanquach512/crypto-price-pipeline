@@ -1,8 +1,7 @@
-from prefect import flow
+from prefect import flow, task
 import logging 
 from scripts.fetch import fetch_prices
 from scripts.load import load_prices
-
 
 @task
 def fetch_task():
@@ -21,4 +20,8 @@ def crypto_pipeline():
     load_task(rows)
 
 if __name__ == "__main__":
-    crypto_pipeline()
+    crypto_pipeline.serve(
+        name="crypto-price_deployment",
+        cron="*/5 * * * *",
+        pause_on_shutdown=False
+    )
