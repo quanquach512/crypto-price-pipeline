@@ -4,7 +4,7 @@ import logging
 
 def main():
     rows = fetch_coingecko_prices()
-    logging.info(f"[FLOW] From [coingecko] Fetched {len(rows)} rows")
+    # logging.info(f"[FLOW] From [coingecko] Fetched {len(rows)} rows")
     load_prices(rows)
 
 if __name__ == "__main__":

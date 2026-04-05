@@ -7,7 +7,7 @@ from scripts.load import load_prices
 def fetch_task():
     logging.info("[FLOW] Fetching data...")
     rows = fetch_coingecko_prices()
-    logging.info(f"[FLOW] From [coingecko] Fetched {len(rows)} rows")
+    # logging.info(f"[FLOW] From [coingecko] Fetched {len(rows)} rows")
     return rows
 
 @task

@@ -28,10 +28,12 @@ USING (
            %s AS snapshot_time,
            %s AS price_usd,
            %s AS market_cap_usd,
-           %s AS volume_24h_usd
+           %s AS volume_24h_usd,
+           %s AS source
 ) s
 ON t.asset_symbol = s.asset_symbol 
 AND t.snapshot_time = s.snapshot_time
+AND t.source = s.source
 WHEN MATCHED THEN 
     UPDATE SET 
         price_usd = s.price_usd,
@@ -43,14 +45,16 @@ WHEN NOT MATCHED THEN
         snapshot_time,
         price_usd,
         market_cap_usd,
-        volume_24h_usd
+        volume_24h_usd,
+        source
     )
     VALUES (
         s.asset_symbol,
         s.snapshot_time,
         s.price_usd,
         s.market_cap_usd,
-        s.volume_24h_usd
+        s.volume_24h_usd,
+        s.source
     );
 """
 
@@ -65,6 +69,7 @@ def load_prices(rows):
     cur = conn.cursor()
     try:
         for r in rows:
+            logging.info(f"row={r}")
             cur.execute(
                 MERGE_SQL, 
                 (
@@ -72,7 +77,8 @@ def load_prices(rows):
                     r["snapshot_time"],
                     r["price_usd"],
                     r["market_cap_usd"],
-                    r["volume_24h_usd"],       
+                    r["volume_24h_usd"],  
+                    r["source"]     
                 ), 
             )
         conn.commit()

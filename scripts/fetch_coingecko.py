@@ -23,6 +23,7 @@ def fetch_coingecko_prices(snapshot_time=None):
             "price_usd": coin["current_price"],
             "market_cap_usd": coin["market_cap"],
             "volume_24h_usd": coin["total_volume"],
+            "source":"coingecko"
         })
     return res
 
