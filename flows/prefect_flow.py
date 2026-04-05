@@ -26,7 +26,7 @@ def load_task(rows):
 @flow(name="crypto-price-pipeline")
 def crypto_pipeline():
     cgk_rows = fetch_coingecko_task()
-    kr_rows = fetch_coingecko_task()
+    kr_rows = fetch_kraken_task()
     rows = cgk_rows+kr_rows
     load_task(rows)
 
