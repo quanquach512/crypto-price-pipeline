@@ -1,13 +1,13 @@
 from prefect import flow, task
 import logging 
-from scripts.fetch import fetch_prices
+from scripts.fetch_coingecko import fetch_coingecko_prices
 from scripts.load import load_prices
 
 @task
 def fetch_task():
     logging.info("[FLOW] Fetching data...")
-    rows = fetch_prices()
-    logging.info(f"[FLOW] Fetched {len(rows)} rows")
+    rows = fetch_coingecko_prices()
+    logging.info(f"[FLOW] From [coingecko] Fetched {len(rows)} rows")
     return rows
 
 @task
